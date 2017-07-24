@@ -1,16 +1,17 @@
-﻿using UnityEngine.SceneManagement;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class QuizMenuController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private DataHolder dataHolder;
+
+    // Use this for initialization
+    void Start () {
+        dataHolder = FindObjectOfType<DataHolder>();
+    }
 	
 	public void goToIndexMenu() {
-		SceneManager.LoadScene("IndexMenu");
+        dataHolder.GoToScene("IndexMenu");
 	}
 }

@@ -1,25 +1,26 @@
-﻿using UnityEngine.SceneManagement;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class IndexMenuController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private DataHolder dataHolder;
+
+    // Use this for initialization
+    void Start () {
+        dataHolder = FindObjectOfType<DataHolder>();
+    }
 	
 	public void goToQuizMenu() {
-		SceneManager.LoadScene("QuizMenu");
+        dataHolder.GoToScene("QuizMenu");
 	}
 
 	public void goToLeaderboardMenu() {
-		SceneManager.LoadScene("LeaderboardMenu");
+        dataHolder.GoToScene("LeaderboardMenu");
 	}
 
 	public void goToLoginMenu() {
-		SceneManager.LoadScene("LoginMenu");
+        dataHolder.GoToScene("LoginMenu");
 	}
 
 }

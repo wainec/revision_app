@@ -6,16 +6,17 @@ using UnityEngine;
 
 public class LoginMenuController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private DataHolder dataHolder;
+
+    // Use this for initialization
+    void Start () {
+        dataHolder = FindObjectOfType<DataHolder>();
+    }
 
 
 	public void goToIndexMenu() {
-		SceneManager.LoadScene("IndexMenu");
+        dataHolder.GoToScene("IndexMenu");
 	}
-	// Update is called once per frame
 
 
 }
