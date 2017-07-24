@@ -14,4 +14,5 @@ public class LeaderboardMenuController : MonoBehaviour {
 	public void goToIndexMenu() {
         dataHolder.GoToScene("IndexMenu");
 	}
+
 }

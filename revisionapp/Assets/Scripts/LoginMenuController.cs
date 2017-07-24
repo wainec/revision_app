@@ -14,7 +14,7 @@ public class LoginMenuController : MonoBehaviour {
     }
 
 
-	public void goToIndexMenu() {
+	public void GoToIndexMenu() {
         dataHolder.GoToScene("IndexMenu");
 	}
 
