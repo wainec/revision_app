@@ -24,7 +24,6 @@
         }
     }
     private void ShowWindow(int windowID) {
-
         GUILayout.BeginVertical();
         GUILayout.Label("Please enter your username and password");
         bool filledIn = (username != "" && password != "");
@@ -51,8 +50,7 @@
         }
 
         Event e = Event.current;
-        if (filledIn && e.isKey && e.keyCode == KeyCode.Return)
-        {
+        if (filledIn && e.isKey && e.keyCode == KeyCode.Return) {
             DoLogin();
         }
 
