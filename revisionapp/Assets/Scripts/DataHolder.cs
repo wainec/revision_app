@@ -11,12 +11,13 @@ public class DataHolder : MonoBehaviour {
 
 	public static bool isDataHolderExist;
 
-	//public string errorMessage;
-	//private DBFactory db;
+    //public string errorMessage;
+    //private DBFactory db;
+
+    public bool loggedIn = false;
 
 	//key is the originating scene, value stores scenes that user can go to
 	public Dictionary <string, List<string>> allowedScenes;
-
     string errorMessage;
 
     // Use this for initialization
@@ -64,8 +65,7 @@ public class DataHolder : MonoBehaviour {
     void SetAllowedScenes() {
 		allowedScenes = new Dictionary<string, List<string>> ();
 
-		allowedScenes.Add("IndexMenu", new List<string>() {"QuizMenu", "LeaderboardMenu", "LoginMenu"});
-        allowedScenes.Add("LoginMenu", new List<string>() { "IndexMenu"});
+		allowedScenes.Add("IndexMenu", new List<string>() {"QuizMenu", "LeaderboardMenu"});
         allowedScenes.Add("QuizMenu", new List< string> () { "IndexMenu"});
 		allowedScenes.Add("LeaderboardMenu", new List< string> () { "IndexMenu"});
 	}
