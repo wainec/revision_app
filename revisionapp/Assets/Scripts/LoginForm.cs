@@ -12,6 +12,9 @@
     //turns off canvas at the start
     void Start() {        dataHolder = FindObjectOfType<DataHolder> ();
         ToggleGUIAndCanvas(dataHolder.loggedIn);        
+    }    public void DoLogout() {
+        dataHolder.loggedIn = false;
+        ToggleGUIAndCanvas(dataHolder.loggedIn);
     }    private void ToggleGUIAndCanvas (bool loggedIn) {
         //if logged in, then we show canvas, otherwise we show Login GUI
         GUIEnabled = !loggedIn;
@@ -46,15 +49,28 @@
         if (GUILayout.Button("Login")) {
             DoLogin();
         }
+
+        Event e = Event.current;
+        if (filledIn && e.isKey && e.keyCode == KeyCode.Return)
+        {
+            DoLogin();
+        }
+
         GUILayout.EndHorizontal();        
         GUILayout.EndVertical();        //set focus to username Field        if (!hasFocussed) {
             GUI.FocusControl("usernameField");
             hasFocussed = true;
         }    }    private void DoLogin() {
         Debug.Log("Logging in");        Authentication.Login(username, password, SuccessfulLogin, UnsuccessfulLogin);    }    private void SuccessfulLogin() {
+        //clear fields
+        username = "";
+        password = "";
+
         //updated the loggedIn field and then turn canvas on and GUI off
         dataHolder.loggedIn = true;
         ToggleGUIAndCanvas(dataHolder.loggedIn);
     }    private void UnsuccessfulLogin() {
         Debug.LogError("Error logging in");
+        //clear password but not username
+        password = "";
     }}
