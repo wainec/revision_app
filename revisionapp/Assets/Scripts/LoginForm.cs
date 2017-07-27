@@ -1,4 +1,11 @@
-﻿using System;using System.Collections;using System.Collections.Generic;using UnityEngine;public class LoginForm : MonoBehaviour {    private const float LABEL_WIDTH = 110;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Newtonsoft.Json;
+
+public class LoginForm : MonoBehaviour {
+    private const float LABEL_WIDTH = 110;
 
     public Canvas canvas;
     private DataHolder dataHolder;
@@ -10,20 +17,43 @@
     private string username = "", password = "";
 
     //turns off canvas at the start
-    void Start() {        dataHolder = FindObjectOfType<DataHolder> ();
+    void Start() {
+		string token;
+
+        dataHolder = FindObjectOfType<DataHolder> ();
+
+		if (!dataHolder.loggedIn) {
+			Debug.Log("checking for token");
+			token = LoadSaveFactory.LoadToken();
+
+			//if there is a token saved, then we check using the token
+			if (token != "") {
+				Debug.Log("Token is " + token);
+			}
+		}
+
+
         ToggleGUIAndCanvas(dataHolder.loggedIn);        
-    }    public void DoLogout() {
+    }
+
+    public void DoLogout() {
         dataHolder.loggedIn = false;
         ToggleGUIAndCanvas(dataHolder.loggedIn);
-    }    private void ToggleGUIAndCanvas (bool loggedIn) {
+    }
+
+    private void ToggleGUIAndCanvas (bool loggedIn) {
         //if logged in, then we show canvas, otherwise we show Login GUI
         GUIEnabled = !loggedIn;
         canvas.enabled = loggedIn;
-    }    private void OnGUI() {        if (GUIEnabled) {
+    }
+
+    private void OnGUI() {
+        if (GUIEnabled) {
             windowRect = GUILayout.Window(0, windowRect, ShowWindow, "Login menu");
         }
     }
-    private void ShowWindow(int windowID) {
+
+    private void ShowWindow(int windowID) {
         GUILayout.BeginVertical();
         GUILayout.Label("Please enter your username and password");
         bool filledIn = (username != "" && password != "");
@@ -55,20 +85,39 @@
         }
 
         GUILayout.EndHorizontal();        
-        GUILayout.EndVertical();        //set focus to username Field        if (!hasFocussed) {
+        GUILayout.EndVertical();
+
+        //set focus to username Field
+        if (!hasFocussed) {
             GUI.FocusControl("usernameField");
             hasFocussed = true;
-        }    }    private void DoLogin() {
-        Debug.Log("Logging in");        Authentication.Login(username, password, SuccessfulLogin, UnsuccessfulLogin);    }    private void SuccessfulLogin() {
+        }
+    }
+
+    private void DoLogin() {
+        Debug.Log("Logging in");
+		dataHolder.Login(username, password, SuccessfulLogin, UnsuccessfulLogin);
+    }
+
+	private void SuccessfulLogin(string data) {
         //clear fields
         username = "";
         password = "";
 
+		string token = JsonConvert.DeserializeObject<AuthenticationKey>(data).key;
+		LoadSaveFactory.SaveToken(token);
+
         //updated the loggedIn field and then turn canvas on and GUI off
         dataHolder.loggedIn = true;
-        ToggleGUIAndCanvas(dataHolder.loggedIn);
-    }    private void UnsuccessfulLogin() {
+        ToggleGUIAndCanvas(dataHolder.loggedIn);
+
+    }
+
+    private void UnsuccessfulLogin() {
         Debug.LogError("Error logging in");
         //clear password but not username
         password = "";
-    }}
+    }
+
+}
+

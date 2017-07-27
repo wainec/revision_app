@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 //https://www.packtpub.com/books/content/using-rest-api-unity-part-1-what-rest-and-basic-queries
 
@@ -14,16 +13,17 @@ public class Student {
     public string avatar;
  }
 
+[System.Serializable]
+public class AuthenticationKey {
+	public string key;
+}
+
+//note that the way GET and POST is set up in revisionapp is slightly different from previous apps
+//instead of using Results in previous apps, it is accessed as an argument to the onComplete function passed to it
 public class DBFactory : MonoBehaviour {
 
-    private string results;
-
-    public string Results {
-        get { return results; }
-    }
-
     //seems to be a bug when pulling some chinese words
-    public WWW GET(string url, System.Action onComplete) {
+	public WWW GET(string url, System.Action <string> onComplete) {
         WWW www = new WWW(url);
         StartCoroutine(WaitForRequest(www, onComplete, null));
         return www;
@@ -33,11 +33,11 @@ public class DBFactory : MonoBehaviour {
         return POST(url, post, null, null);
     }
 
-    public WWW POST(string url, Dictionary<string, string> post, System.Action onComplete) {
+	public WWW POST(string url, Dictionary<string, string> post, System.Action <string> onComplete) {
         return POST(url, post, onComplete, null);
     }
 
-    public WWW POST(string url, Dictionary<string, string> post, System.Action onComplete, System.Action onError) {
+	public WWW POST(string url, Dictionary<string, string> post, System.Action <string> onComplete, System.Action onError) {
         WWWForm form = new WWWForm();
 
         foreach (KeyValuePair<string, string> post_arg in post) {
@@ -50,15 +50,13 @@ public class DBFactory : MonoBehaviour {
     }
 
     //KIV -> if onError is not passed in and there is an error, nothing will happen
-    private IEnumerator WaitForRequest(WWW www, System.Action onComplete, System.Action onError) {
+	private IEnumerator WaitForRequest(WWW www, System.Action <string> onComplete, System.Action onError) {
         yield return www;
 
         if (www.error == null) {
-            results = www.text;
-
             //some GET/POST requests do not have an onComplete function
             if (onComplete != null) {
-                onComplete();
+				onComplete(www.text);
             }
         }
         else if (onError != null) {

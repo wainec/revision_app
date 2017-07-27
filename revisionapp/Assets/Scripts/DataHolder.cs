@@ -20,6 +20,8 @@ public class DataHolder : MonoBehaviour {
 	public Dictionary <string, List<string>> allowedScenes;
     string errorMessage;
 
+	private DBFactory db;
+
     // Use this for initialization
     void Start() {
         if (!isDataHolderExist) {
@@ -30,36 +32,48 @@ public class DataHolder : MonoBehaviour {
             Destroy(transform.gameObject);
         }
 
-		//db = transform.gameObject.AddComponent<DBFactory>();
+		db = transform.gameObject.AddComponent<DBFactory>();
 		SetAllowedScenes();
     }
 
-    public IEnumerator CheckInternetConnection(System.Action onComplete) {
-        return CheckInternetConnection(onComplete, null);
-    }
+//    public IEnumerator CheckInternetConnection(System.Action onComplete) {
+//        return CheckInternetConnection(onComplete, null);
+//    }
 
+	//DOMAIN IS WRONG -> KIV
     //high level function that takes in two actions 
     // onComplete action will be run if there is internet, otherwise run onError
-    public IEnumerator CheckInternetConnection(System.Action onComplete, System.Action onError) {
-        Debug.Log("Checking for internet");
-        string url = Config.domain + "/admin/api/worldofboshicraft/checkinternet";
-        WWW www = new WWW(url);
-        yield return www;
+//    public IEnumerator CheckInternetConnection(System.Action onComplete, System.Action onError) {
+//        Debug.Log("Checking for internet");
+//        string url = Config.domain + "/admin/api/worldofboshicraft/checkinternet";
+//        WWW www = new WWW(url);
+//        yield return www;
+//
+//        //if there is internet connection, then run whatever action (function) is passed to CheckInternetConnection IEnumerator
+//        if (www.error != null) {
+//            Debug.LogError("No internet connection detected");
+//            if (onError != null) {
+//                onError();
+//            }
+//            
+//        }
+//        else {
+//            Debug.Log("Internet connection detected");
+//            onComplete();
+//        }
+//    }
 
-        //if there is internet connection, then run whatever action (function) is passed to CheckInternetConnection IEnumerator
-        if (www.error != null) {
-            Debug.LogError("No internet connection detected");
-            if (onError != null) {
-                onError();
-            }
-            
-        }
-        else {
-            Debug.Log("Internet connection detected");
-            onComplete();
-        }
-    }
 
+	public void Login(string username, string password, System.Action <string> onComplete, System.Action onError) {
+		string url = Config.domain + "/rest-auth/login/";
+		Dictionary <string, string> postData = new Dictionary<string, string> () {
+			{"username", username},
+			{"password", password}
+		};
+
+        // note that we pass the results of the post to onComplete
+		db.POST(url, postData, onComplete, onError);
+	}
 
     //used to set what scenes we can access from each scene
     void SetAllowedScenes() {

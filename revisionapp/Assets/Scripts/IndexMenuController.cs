@@ -8,7 +8,10 @@ public class IndexMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        dataHolder = FindObjectOfType<DataHolder>();
+		Debug.Log("start");
+		//needs to be called on the first scene
+		Config.SetValues();
+        dataHolder = FindObjectOfType<DataHolder> ();
     }
 	
 	public void goToQuizMenu() {
