@@ -29,6 +29,7 @@ public class LoginForm : MonoBehaviour {
 			//if there is a token saved, then we check using the token
 			if (token != "") {
 				Debug.Log("Token is " + token);
+				//dataHolder.Login(token);
 			}
 		}
 

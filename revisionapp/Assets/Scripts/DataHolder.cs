@@ -64,6 +64,13 @@ public class DataHolder : MonoBehaviour {
 //    }
 
 
+	public void Login(string token, System.Action <string> onComplete, System.Action onError) {
+		string url = Config.domain + "/rest-auth/login/";
+
+		// note that we pass the results of the post to onComplete
+		//db.AUTHENTICATION(url, token, onComplete, onError);
+	}
+
 	public void Login(string username, string password, System.Action <string> onComplete, System.Action onError) {
 		string url = Config.domain + "/rest-auth/login/";
 		Dictionary <string, string> postData = new Dictionary<string, string> () {

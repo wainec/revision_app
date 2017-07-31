@@ -6,10 +6,12 @@ using System.Collections.Generic;
 
 [System.Serializable]
 public class Student {
-    public string displayName;
-    public string _id;
+    public string display_name;
+	//this is the student id in smartschool (current) database
+	public string id;
+	//this is student id in legacy boshipanda database
+	public string legacy_mongodb_id;
     public int coins;
-    public bool attending;
     public string avatar;
  }
 
@@ -48,6 +50,17 @@ public class DBFactory : MonoBehaviour {
         StartCoroutine(WaitForRequest(www, onComplete, onError));
         return www;
     }
+
+	//public WWW AUTHENTICATION (string url, string token, System.Action <string> onComplete, System.Action onError) {
+		//WWWForm form = new WWWForm();
+
+		//Hashtable headers = new Hashtable();
+		//headers["Authorization"] = "Token " + token;
+
+		//WWW www = new WWW(url, form, headers);
+		//StartCoroutine(WaitForRequest(www, onComplete, onError));
+		//return www;
+	//}
 
     //KIV -> if onError is not passed in and there is an error, nothing will happen
 	private IEnumerator WaitForRequest(WWW www, System.Action <string> onComplete, System.Action onError) {
