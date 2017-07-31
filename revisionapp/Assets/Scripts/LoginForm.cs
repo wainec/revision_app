@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class LoginForm : MonoBehaviour {
     private const float LABEL_WIDTH = 110;
 
     public Canvas canvas;
+    public Text TitleText;
     private DataHolder dataHolder;
 
     private bool GUIEnabled = true;
@@ -29,8 +31,8 @@ public class LoginForm : MonoBehaviour {
 			//if there is a token saved, then we check using the token
 			if (token != "") {
 				Debug.Log("Token is " + token);
-				//dataHolder.Login(token);
-			}
+                dataHolder.GetStudentInfo(token, UpdateUIWithStudentInfo, UnsuccessfulLogin);
+            }
 		}
 
 
@@ -38,6 +40,7 @@ public class LoginForm : MonoBehaviour {
     }
 
     public void DoLogout() {
+        LoadSaveFactory.ResetToken();
         dataHolder.loggedIn = false;
         ToggleGUIAndCanvas(dataHolder.loggedIn);
     }
@@ -57,7 +60,7 @@ public class LoginForm : MonoBehaviour {
     private void ShowWindow(int windowID) {
         GUILayout.BeginVertical();
         GUILayout.Label("Please enter your username and password");
-        bool filledIn = (username != "" && password != "");
+
 
         GUILayout.BeginHorizontal();
         GUI.SetNextControlName("usernameField");
@@ -73,6 +76,7 @@ public class LoginForm : MonoBehaviour {
         GUILayout.FlexibleSpace();
 
         //checks to see if both username and passwords are filled in
+        bool filledIn = (username != "" && password != "");
         GUI.enabled = filledIn;
 
         GUILayout.BeginHorizontal();
@@ -100,24 +104,38 @@ public class LoginForm : MonoBehaviour {
 		dataHolder.Login(username, password, SuccessfulLogin, UnsuccessfulLogin);
     }
 
+    //after successful login, get student info
+    //kiv - gui only turned off after we have gotten student info
 	private void SuccessfulLogin(string data) {
         //clear fields
         username = "";
         password = "";
 
-		string token = JsonConvert.DeserializeObject<AuthenticationKey>(data).key;
+        string token = JsonConvert.DeserializeObject<AuthenticationKey>(data).key;
 		LoadSaveFactory.SaveToken(token);
 
-        //updated the loggedIn field and then turn canvas on and GUI off
-        dataHolder.loggedIn = true;
-        ToggleGUIAndCanvas(dataHolder.loggedIn);
+        dataHolder.GetStudentInfo(token, UpdateUIWithStudentInfo, UnsuccessfulLogin);
+    }
 
+    //once we have successfully gotten student information, then we remove GUI
+    private void UpdateUIWithStudentInfo(string data) {
+
+        dataHolder.student = JsonConvert.DeserializeObject<Student> (data);
+        dataHolder.loggedIn = true;
+
+        TitleText.text = "Welcome " + dataHolder.student.display_name + "! You have " + dataHolder.student.coins + " coins!";
+
+        ToggleGUIAndCanvas(dataHolder.loggedIn);
     }
 
     private void UnsuccessfulLogin() {
         Debug.LogError("Error logging in");
         //clear password but not username
         password = "";
+
+        //updated the loggedIn field and then turn canvas on and GUI off
+        dataHolder.loggedIn = false;
+        ToggleGUIAndCanvas(dataHolder.loggedIn);
     }
 
 }

@@ -21,6 +21,7 @@ public class DataHolder : MonoBehaviour {
     string errorMessage;
 
 	private DBFactory db;
+    public Student student;
 
     // Use this for initialization
     void Start() {
@@ -63,14 +64,8 @@ public class DataHolder : MonoBehaviour {
 //        }
 //    }
 
-
-	public void Login(string token, System.Action <string> onComplete, System.Action onError) {
-		string url = Config.domain + "/rest-auth/login/";
-
-		// note that we pass the results of the post to onComplete
-		//db.AUTHENTICATION(url, token, onComplete, onError);
-	}
-
+    
+    //gets a token from database
 	public void Login(string username, string password, System.Action <string> onComplete, System.Action onError) {
 		string url = Config.domain + "/rest-auth/login/";
 		Dictionary <string, string> postData = new Dictionary<string, string> () {
@@ -81,6 +76,12 @@ public class DataHolder : MonoBehaviour {
         // note that we pass the results of the post to onComplete
 		db.POST(url, postData, onComplete, onError);
 	}
+
+    public void GetStudentInfo(string token, System.Action<string> onComplete, System.Action onError) {
+		string url = Config.domain + "/api/v1/revision/students/1/";
+        // note that we pass the results of the post to onComplete
+		db.GET(url, token, onComplete, onError);
+    }
 
     //used to set what scenes we can access from each scene
     void SetAllowedScenes() {
