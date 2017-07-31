@@ -35,7 +35,6 @@ public class LoginForm : MonoBehaviour {
             }
 		}
 
-
         ToggleGUIAndCanvas(dataHolder.loggedIn);        
     }
 
@@ -132,6 +131,9 @@ public class LoginForm : MonoBehaviour {
         Debug.LogError("Error logging in");
         //clear password but not username
         password = "";
+
+        //clears any existing token (since it is wrong)
+        LoadSaveFactory.ResetToken();
 
         //updated the loggedIn field and then turn canvas on and GUI off
         dataHolder.loggedIn = false;
