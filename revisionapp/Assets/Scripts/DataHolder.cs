@@ -23,6 +23,8 @@ public class DataHolder : MonoBehaviour {
 	private DBFactory db;
     public Student student;
 
+	public Quiz quiz;
+
     // Use this for initialization
     void Start() {
         if (!isDataHolderExist) {
@@ -35,6 +37,22 @@ public class DataHolder : MonoBehaviour {
 
 		db = transform.gameObject.AddComponent<DBFactory>();
 		SetAllowedScenes();
+
+		//kiv code -> hardcode data
+		quiz = new Quiz();
+		quiz.chinese_title = "测试";
+		quiz.term_id = "p1";
+		quiz.term_index = 0;
+		quiz.index = 2;	
+
+		quiz.questions = new List<Question> ();
+		var q = new Question();
+		q.question_text = "家人在我身边,我什么都不怕。";
+		q.choices = new List<string> () {
+			"ziā rén", "jiā rén", "jiā lén"
+		};
+		q.correct_answer = "jiā rén";
+		quiz.questions.Add(q);
     }
 
 //    public IEnumerator CheckInternetConnection(System.Action onComplete) {
@@ -78,7 +96,9 @@ public class DataHolder : MonoBehaviour {
 	}
 
     public void GetStudentInfo(string token, System.Action<string> onComplete, System.Action onError) {
-		string url = Config.domain + "/api/v1/revision/students/1/";
+		Debug.Log("Getting student info");
+		Debug.Log(token);
+		string url = Config.domain + "/api/v1/revision/students/current/";
         // note that we pass the results of the post to onComplete
 		db.GET(url, token, onComplete, onError);
     }

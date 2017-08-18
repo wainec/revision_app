@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuizMenuController : MonoBehaviour {
 
     private DataHolder dataHolder;
+	public GameObject StudentAvatar;
     public List<Button> choiceButtons;
 
     private Color ButtonSelectedColor = Color.green;
@@ -18,10 +19,11 @@ public class QuizMenuController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         dataHolder = FindObjectOfType<DataHolder> ();
+		StudentAvatar.GetComponent<StudentItem> ().UpdateStudentUI(dataHolder.student);
         ResetButtonColors();
     }
 	
-	public void goToIndexMenu() {
+	public void GoToIndexMenu() {
         dataHolder.GoToScene("IndexMenu");
 	}
 
@@ -57,11 +59,8 @@ public class QuizMenuController : MonoBehaviour {
     }
 
     public void ClickConfirmButton() {
-        if (isChoiceButtonSelected) {
-            Debug.Log("OK");
-            Debug.Log(choiceButtonSelected);
+        if (isChoiceButtonSelected) {;
             string choiceString = choiceButtonSelected.transform.Find("Text").GetComponent<Text>().text;
-            Debug.Log(choiceString);
         }
         else {
             Debug.LogError("Error - no choice was selected");

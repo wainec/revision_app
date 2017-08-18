@@ -8,7 +8,6 @@ public class IndexMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		Debug.Log("start");
 		//needs to be called on the first scene
 		Config.SetValues();
         dataHolder = FindObjectOfType<DataHolder> ();

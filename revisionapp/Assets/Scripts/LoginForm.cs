@@ -118,7 +118,6 @@ public class LoginForm : MonoBehaviour {
 
     //once we have successfully gotten student information, then we remove GUI
     private void UpdateUIWithStudentInfo(string data) {
-
         dataHolder.student = JsonConvert.DeserializeObject<Student> (data);
         dataHolder.loggedIn = true;
 

@@ -16,6 +16,25 @@ public class Student {
  }
 
 [System.Serializable]
+public class Quiz {
+	public string term_id;
+	//term_index refers to index position of quiz within the term (i.e. 0 could mean first quiz of term 3)
+	public int term_index;
+	//index refers to index position of quiz within the whole year; used to sort quizzes
+	public int index;
+	public string chinese_title;
+	public List<Question> questions;
+}
+
+[System.Serializable]
+public class Question {
+	public string question_text;
+	public List<string> choices;
+	public string correct_answer;
+}
+
+
+[System.Serializable]
 public class AuthenticationKey {
 	public string key;
 }
