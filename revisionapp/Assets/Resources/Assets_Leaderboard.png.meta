@@ -1,9 +1,12 @@
 fileFormatVersion: 2
-guid: 200c2b44bcab44dd19268d5c30f04d43
-timeCreated: 1505098894
+guid: 43f23b23329c24040a3ca880b74dce6b
+timeCreated: 1505099157
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Student_Current_BG
+    21300002: Student_Others_BG
+    21300004: Coin_BG
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -34,7 +37,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -76,7 +79,46 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Student_Current_BG
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 552
+        width: 1844
+        height: 308
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Student_Others_BG
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 296
+        width: 1844
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Coin_BG
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 66
+        width: 547
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
