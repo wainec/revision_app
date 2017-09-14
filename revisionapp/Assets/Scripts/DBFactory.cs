@@ -16,6 +16,15 @@ public class Student {
  }
 
 [System.Serializable]
+public class LeaderboardStudent {
+	public string display_name;
+	public int coins;
+	public string display_rank;
+	public bool current_student;
+	public string avatar;
+}
+
+[System.Serializable]
 public class Quiz {
 	public string term_id;
 	//term_index refers to index position of quiz within the term (i.e. 0 could mean first quiz of term 3)
