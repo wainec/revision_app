@@ -15,7 +15,7 @@ public class LoginForm : MonoBehaviour {
     private bool GUIEnabled = true;
     private bool loggingIn = false;
     private bool hasFocussed = false;
-    private Rect windowRect = new Rect(Screen.width / 2 - 150, Screen.height / 2 - 75, 300, 150);
+    private Rect windowRect = new Rect(Screen.width / 2 - 150, Screen.height / 2 - 35, 300, 150);
     private string username = "", password = "";
 
     //turns off canvas at the start

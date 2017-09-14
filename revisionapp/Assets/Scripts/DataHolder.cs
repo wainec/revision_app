@@ -22,8 +22,8 @@ public class DataHolder : MonoBehaviour {
 
 	private DBFactory db;
     public Student student;
-
 	public Quiz quiz;
+	public DeviceInformation deviceInformation;
 
     // Use this for initialization
     void Start() {
@@ -37,6 +37,11 @@ public class DataHolder : MonoBehaviour {
 
 		db = transform.gameObject.AddComponent<DBFactory>();
 		SetAllowedScenes();
+
+		deviceInformation.device_model = SystemInfo.deviceModel;
+		deviceInformation.device_type = SystemInfo.deviceType.ToString();
+		deviceInformation.device_unique_identifier = SystemInfo.deviceUniqueIdentifier;
+		deviceInformation.operating_system = SystemInfo.operatingSystem;
 
 		//kiv code -> hardcode data
 		quiz = new Quiz();

@@ -33,10 +33,17 @@ public class Question {
 	public string correct_answer;
 }
 
-
 [System.Serializable]
 public class AuthenticationKey {
 	public string key;
+}
+
+[System.Serializable]
+public class DeviceInformation {
+	public string device_model;
+	public string device_type;
+	public string device_unique_identifier;
+	public string operating_system;
 }
 
 //note that the way GET and POST is set up in revisionapp is slightly different from previous apps
