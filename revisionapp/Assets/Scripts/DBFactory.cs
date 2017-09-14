@@ -19,7 +19,7 @@ public class Student {
 public class LeaderboardStudent {
 	public string display_name;
 	public int coins;
-	public string display_rank;
+	public string leaderboard_position;
 	public bool current_student;
 	public string avatar;
 }

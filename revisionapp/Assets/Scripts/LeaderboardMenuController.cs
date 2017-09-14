@@ -18,35 +18,40 @@ public class LeaderboardMenuController : MonoBehaviour {
 		temp.display_name = "Tom";
 		temp.coins = 12;
 		temp.current_student = true;
-		temp.display_rank = "1";
+		temp.leaderboard_position = "1";
+		temp.avatar = "jiejie";
 		leaderboardStudents.Add(temp);
 
 		temp = new LeaderboardStudent ();
 		temp.display_name = "Tom";
 		temp.coins = 12;
 		temp.current_student = false;
-		temp.display_rank = "1";
+		temp.leaderboard_position = "2";
+		temp.avatar = "jiejie";
 		leaderboardStudents.Add(temp);
 
 		temp = new LeaderboardStudent ();
 		temp.display_name = "Tom";
 		temp.coins = 12;
 		temp.current_student = false;
-		temp.display_rank = "1";
+		temp.leaderboard_position = "3";
+		temp.avatar = "jiejie";
 		leaderboardStudents.Add(temp);
 
 		temp = new LeaderboardStudent ();
 		temp.display_name = "Tom";
 		temp.coins = 12;
 		temp.current_student = false;
-		temp.display_rank = "1";
+		temp.leaderboard_position = "4";
+		temp.avatar = "jiejie";
 		leaderboardStudents.Add(temp);
 
 		temp = new LeaderboardStudent ();
 		temp.display_name = "Tom";
 		temp.coins = 12;
 		temp.current_student = false;
-		temp.display_rank = "1";
+		temp.leaderboard_position = "5";
+		temp.avatar = "jiejie";
 		leaderboardStudents.Add(temp);
 
 		DrawLeaderboardStudents(leaderboardStudents);
@@ -73,8 +78,8 @@ public class LeaderboardMenuController : MonoBehaviour {
 				transform.position.z);
 
 			GameObject leaderboardStudentObject = (GameObject) Instantiate(Prefab, currPos, transform.rotation);
-//
-//			studentObject.GetComponent<StudentItem>().UpdateStudentPreFab(student);
+
+			leaderboardStudentObject.GetComponent<StudentItem>().UpdateLeaderboardStudentUI(leaderboardStudent);
 			leaderboardStudentObject.transform.SetParent(transform);
 
 			// offsets the yPos of the next object according

@@ -8,6 +8,8 @@ public class StudentItem : MonoBehaviour {
 	public Text NameText;
 	//the text box that displays the coins
 	public Text CoinsText;
+	//only for leaderboard student
+	public Text LeaderboardPositionText;
 
 	public int coinsInt;
 	public string studentId;
@@ -26,18 +28,27 @@ public class StudentItem : MonoBehaviour {
 		this.studentId = student.id;
 		this.legacyMongodbId = student.legacy_mongodb_id;
 
-		UpdateStudentAvatar (student);
+		UpdateStudentAvatar (student.avatar);
+	}
+
+	public void UpdateLeaderboardStudentUI (LeaderboardStudent leaderboardStudent) {
+	
+		this.NameText.text = leaderboardStudent.display_name;
+		this.CoinsText.text = leaderboardStudent.coins.ToString();
+		this.LeaderboardPositionText.text = leaderboardStudent.leaderboard_position + ".";
+
+		UpdateStudentAvatar (leaderboardStudent.avatar);
 	}
 		
 	//helper function that updates the avatar
-	void UpdateStudentAvatar (Student student) {
+	void UpdateStudentAvatar (string studentAvatar) {
 		Sprite found = null;
 		Sprite [] avatars = Resources.LoadAll<Sprite>("Portraits");
 		Sprite defaultAvatar = avatars.Single(a => a.name == "initial");
 
 		//find the corresponding avatar
 		foreach (var avatar in avatars) {
-			if (avatar.name == student.avatar) {
+			if (avatar.name == studentAvatar) {
 				found = avatar;
 				break;
 			}
